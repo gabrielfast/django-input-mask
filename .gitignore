@@ -4,7 +4,10 @@ dist
 __pycache__
 *~
 *.pyc
+*.egg-info
 
 .venv
 .eggs
 .tox
+.project
+.pydevproject
