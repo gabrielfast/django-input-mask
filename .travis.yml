@@ -12,7 +12,8 @@ env:
   - TOX_ENV=lnx-Django18
 
 install:
-  - pip install 'tox>=2'
+  - pip install 'tox>=2' pylint
 
 script:
+  - ./pep8.sh
   - tox

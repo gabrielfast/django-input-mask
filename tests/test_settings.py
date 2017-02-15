@@ -1,5 +1,3 @@
-import sys
-
 
 SECRET_KEY = 'fake-key'
 

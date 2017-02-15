@@ -1,6 +1,6 @@
-from django.conf import settings
-
 import json
+
+from django.conf import settings
 
 
 def encode_options(opts):
@@ -14,7 +14,7 @@ def mask_cls(widget_cls):
         def __init__(self, **kwargs):
             mask = kwargs.pop('mask', {})
 
-            if type(mask) != object:
+            if not isinstance(mask, object):
                 mask = {'mask': mask}
 
             super(InputMask, self).__init__(**kwargs)
@@ -35,8 +35,8 @@ def mask_cls(widget_cls):
     return InputMask
 
 
-def mask(widget_cls, **kwargs):
-    return mask_cls(widget_cls)(**kwargs)
+# def mask(widget_cls, **kwargs):
+#     return mask_cls(widget_cls)(**kwargs)
 
 
 def money_mask_cls(widget_cls):
