@@ -38,31 +38,40 @@
 
             var value = input.val()
             if (value != '') {
-                var decimals = value.substring(value.indexOf(',') + 1)
-                var precision = decimals.length
-
-                // Fix precision
+                
+                // Get decimals
+                var decimal_separator = '.'
+                if (value.indexOf(',') != -1) {
+                    decimal_separator = ','
+                }
+                
+                var decimals = value.substring(value.indexOf(decimal_separator) + 1)               
+                var new_precision = decimals.length
+                
+                // Force precision
                 if (!opts.precision) {
-                    opts.precision = precision;
+                    opts.precision = new_precision;
                 }
 
-                // Fix value precision
-                if (opts.precision < precision) {
-                    var new_value = value.substring(0, value.indexOf(',')) + "," + decimals.substring(0, opts.precision)
+                // Fix value with new precision
+                if (opts.precision < new_precision) {
+                    var new_value = value.substring(0, value.indexOf(decimal_separator)) + decimal_separator + decimals.substring(0, opts.precision)
                     input.val(new_value);
                 }
 
                 // Brazil
-                if (!opts.thousands) {
-                    opts.thousands = "."
-                }
+                var lang = navigator.language || navigator.userLanguage;
+                if (lang == "pt-BR") {
+                    if (!opts.thousands) {
+                        opts.thousands = "."
+                    }
 
-                if (!opts.decimal) {
-                    opts.decimal = ","
+                    if (!opts.decimal) {
+                        opts.decimal = ","
+                    }
                 }
                 // Brazil - End
             }
-
 
             input.maskMoney(opts);
 
