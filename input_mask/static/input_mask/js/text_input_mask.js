@@ -1,6 +1,7 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;( function( $, window, document, undefined ) {
+;
+(function($, window, document, undefined) {
 
     "use strict";
 
@@ -35,6 +36,34 @@
                 opts = input.attr('data-money-mask').replace(/&quot;/g, '"'),
                 opts = JSON.parse(opts);
 
+            var value = input.val()
+            if (value != '') {
+                var decimals = value.substring(value.indexOf(',') + 1)
+                var precision = decimals.length
+
+                // Fix precision
+                if (!opts.precision) {
+                    opts.precision = precision;
+                }
+
+                // Fix value precision
+                if (opts.precision < precision) {
+                    var new_value = value.substring(0, value.indexOf(',')) + "," + decimals.substring(0, opts.precision)
+                    input.val(new_value);
+                }
+
+                // Brazil
+                if (!opts.thousands) {
+                    opts.thousands = "."
+                }
+
+                if (!opts.decimal) {
+                    opts.decimal = ","
+                }
+                // Brazil - End
+            }
+
+
             input.maskMoney(opts);
 
             if (opts.allowZero || input.val() != '') {
@@ -44,14 +73,14 @@
     });
 
     $.fn[pluginName] = function(options) {
-        return this.each(function(){
+        return this.each(function() {
             new Plugin(this, options);
         });
     };
 
-} )( jQuery, window, document );
+})(jQuery, window, document);
 
 
-$(function(){
+$(function() {
     $('body').djangoInputMask();
 });
