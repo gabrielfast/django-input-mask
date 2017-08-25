@@ -38,7 +38,6 @@
 
             var value = input.val()
             if (value != '') {
-                
                 // Get decimals
                 var decimal_separator = '.'
                 if (value.indexOf(',') != -1) {
@@ -58,21 +57,21 @@
                     var new_value = value.substring(0, value.indexOf(decimal_separator)) + decimal_separator + decimals.substring(0, opts.precision)
                     input.val(new_value);
                 }
-
-                // Brazil
-                var lang = navigator.language || navigator.userLanguage;
-                if (lang == "pt-BR") {
-                    if (!opts.thousands) {
-                        opts.thousands = "."
-                    }
-
-                    if (!opts.decimal) {
-                        opts.decimal = ","
-                    }
-                }
-                // Brazil - End
             }
 
+            // Brazil
+            var lang = navigator.language || navigator.userLanguage;
+            if (lang == "pt-BR") {
+                if (!opts.thousands) {
+                    opts.thousands = "."
+                }
+
+                if (!opts.decimal) {
+                    opts.decimal = ","
+                }
+            }
+            // Brazil - End
+            
             input.maskMoney(opts);
 
             if (opts.allowZero || input.val() != '') {
