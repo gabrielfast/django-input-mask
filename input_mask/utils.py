@@ -52,6 +52,10 @@ def money_mask_cls(widget_cls):
 
             self.mask.update(mask)
 
+            # Force precision with decimal_places
+            if not self.mask.get('precision'):
+                self.mask['precision'] = self.decimal_places
+
         def render(self, name, value, attrs=None):
             attrs = attrs or {}
             attrs['data-money-mask'] = encode_options(self.mask)
